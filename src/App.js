@@ -2,35 +2,12 @@ import { useEffect, useState } from "react";
 import firebase from "./firebase";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
+import Button from "./Button";
+
+import "./app.css";
+
 function App() {
   const [token, setToken] = useState("");
-
-  const send = () => {
-    const key =
-      "AAAA9QT3yMI:APA91bFAJkxAz8nAfgXPeVq5Y_64Z5wgG5kbNfVPcR6u3XNeCM9oZExXKCec_C__yQg4Li-lOhsdiwRfV6iBzwH8QJl_MajNrylvs6vrhbiZKvcSDb_fylBEMz3LRjk0BkFcDI99rxUL";
-    const notification = {
-      title: "Portugal vs. Denmark",
-      body: "5 to 1",
-    };
-
-    fetch("https://fcm.googleapis.com/fcm/send", {
-      method: "POST",
-      headers: {
-        Authorization: "key=" + key,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        notification: notification,
-        to: token,
-      }),
-    })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
 
   useEffect(() => {
     const messaging = getMessaging(firebase);
@@ -72,9 +49,7 @@ function App() {
 
   return (
     <div className="App">
-      <button type="button" onClick={send}>
-        Send test Notif
-      </button>
+      <Button token={token} />
     </div>
   );
 }
