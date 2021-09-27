@@ -37,9 +37,13 @@ function App() {
 
     onMessage(messaging, (payload) => {
       const { notification } = payload;
-
-      new Notification(notification.title, notification);
+      const { title, body } = notification;
+      const options = {
+        body,
+      };
       console.log("Message received. ", payload);
+
+      return new Notification(title, options);
     });
 
     getToken(messaging, {
