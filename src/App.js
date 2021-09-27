@@ -49,6 +49,7 @@ function App() {
 
   return (
     <div className="App">
+      <p>{token}</p>
       <Button token={token} />
     </div>
   );
