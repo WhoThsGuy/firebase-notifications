@@ -18,6 +18,7 @@ function App() {
       const options = {
         body,
       };
+
       alert(`Message received.: ${JSON.stringify(payload)}`);
       alert(
         `window.Notification: ${typeof window.Notification !== "undefined"}`
@@ -28,7 +29,23 @@ function App() {
         }`
       );
 
-      return new Notification(title, options);
+      try {
+        alert(`new Notification`);
+        new Notification(title, options);
+      } catch (error) {
+        alert(`error ${JSON.stringify(error)}`);
+
+        navigator.serviceWorker
+          .getRegistration("/firebase-cloud-messaging-push-scope")
+          .then(function (serviceWorkerRegistration) {
+            alert(
+              `serviceWorkerRegistration: ${JSON.stringify(
+                serviceWorkerRegistration
+              )}`
+            );
+            serviceWorkerRegistration.showNotification(title, options);
+          });
+      }
     });
 
     getToken(messaging, {
