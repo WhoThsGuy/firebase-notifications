@@ -18,7 +18,15 @@ function App() {
       const options = {
         body,
       };
-      console.log("Message received. ", payload);
+      alert(`Message received.: ${JSON.stringify(payload)}`);
+      alert(
+        `window.Notification: ${typeof window.Notification !== "undefined"}`
+      );
+      alert(
+        `Notification.permission === 'granted': ${
+          Notification.permission === "granted"
+        }`
+      );
 
       return new Notification(title, options);
     });
